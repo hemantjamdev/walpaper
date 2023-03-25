@@ -19,8 +19,12 @@ class _LoginScreenState extends State<LoginScreen> {
     return Scaffold(
       body: Center(
         child: Column(
+
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
+          Image.asset(
+             fit:BoxFit.contain ,
+              'assets/images/login.jpg'),
             SizedBox(height: 50),
             SignInButton(
               Buttons.google,

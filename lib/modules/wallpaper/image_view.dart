@@ -11,35 +11,33 @@ class ImageView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: MyAppBar(
-        tag: 'appbar_title',
-        title: 'image',
-        tag2: "1",
-      ),
-      backgroundColor: Colors.grey,
-      body: Stack(
-        children: [
-          InteractiveViewer(child: WallpaperGrid(url: imageUrl)),
-          Column(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              Container(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  mainAxisSize: MainAxisSize.max,
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  children: [
-                    CustomIcon(icon: Icon(Icons.share)),
-                    CustomIcon(icon: Icon(Icons.file_download)),
-                    CustomIcon(icon: Icon(Icons.wallpaper)),
-                    CustomIcon(icon: Icon(Icons.favorite)),
-                  ],
+    return SafeArea(
+      child: Scaffold(
+       // appBar: MyAppBar(title: 'image'),
+        backgroundColor: Colors.grey,
+        body: Stack(
+          children: [
+            InteractiveViewer(child: WallpaperGrid(url: imageUrl)),
+            Column(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                Container(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    mainAxisSize: MainAxisSize.max,
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      CustomIcon(icon: Icon(Icons.share)),
+                      CustomIcon(icon: Icon(Icons.file_download)),
+                      CustomIcon(icon: Icon(Icons.wallpaper)),
+                      CustomIcon(icon: Icon(Icons.favorite)),
+                    ],
+                  ),
                 ),
-              ),
-            ],
-          )
-        ],
+              ],
+            )
+          ],
+        ),
       ),
     );
   }

@@ -13,8 +13,20 @@ class _SearchBarState extends State<SearchBar> {
   final TextEditingController _textEditingController = TextEditingController();
 
   @override
+  void dispose() {
+    _textEditingController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return TextField(
+      onSubmitted: (value) {
+        if (widget.onSearch != null) {
+          widget.onSearch!(_textEditingController.text);
+          FocusScope.of(context).unfocus();
+        }
+      },
       controller: _textEditingController,
       decoration: InputDecoration(
         hintText: 'Search...',
@@ -22,6 +34,7 @@ class _SearchBarState extends State<SearchBar> {
           icon: Icon(Icons.search),
           onPressed: () {
             if (widget.onSearch != null) {
+              FocusScope.of(context).unfocus();
               widget.onSearch!(_textEditingController.text);
             }
           },

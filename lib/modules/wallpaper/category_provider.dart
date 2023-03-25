@@ -9,15 +9,12 @@ import 'package:wallpaper/modules/wallpaper/wallpaper_model.dart';
 class CategoryController extends GetxController {
   RxString catName = "Nature".obs;
 
-  CategoryController() {
-    getCategory();
-  }
-
   changeSelect(String categoryName) {
     catName.value = categoryName;
   }
 
   List<String> categories = [
+    'Nature',
     'Landscapes',
     'Wildlife',
     'Portraits',
@@ -34,10 +31,9 @@ class CategoryController extends GetxController {
     'Night',
     'Family',
     'Events',
-    'Nature',
     'Cityscape',
     'Underwater',
-    'Aerial'
+    'Bike'
   ];
 
   RxList<String> categoryList = <String>[].obs;

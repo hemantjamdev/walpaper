@@ -1,14 +1,24 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:wallpaper/modules/wallpaper/category_provider.dart';
 
-class CategoryList extends StatelessWidget {
+class CategoryList extends StatefulWidget {
   final void Function(String)? onCategorySearch;
 
   CategoryList({required this.onCategorySearch, super.key});
 
-  final controller = CategoryController();
+  @override
+  State<CategoryList> createState() => _CategoryListState();
+}
 
+class _CategoryListState extends State<CategoryList> {
+  final controller = CategoryController();
+@override
+  void initState() {
+    controller.getCategory();
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -38,30 +48,32 @@ class CategoryList extends StatelessWidget {
                     children: [
                       InkWell(
                         onTap: () {
-                          onCategorySearch!(controller.categories[index]);
+                          widget.onCategorySearch!(controller.categories[index]);
                           controller.changeSelect(controller.categories[index]);
                         },
                         child: Obx(
                           () => CircleAvatar(
                             radius: controller.catName.value ==
                                     controller.categories[index]
-                                ? 32
+                                ? 33
                                 : 31,
                             backgroundColor: controller.catName.value ==
                                     controller.categories[index]
                                 ? Colors.orange
-                                : Colors.white,
+                                : Colors.black,
                             child: CircleAvatar(
                               radius: 30.0,
-                              backgroundImage: NetworkImage(
+                              backgroundImage: CachedNetworkImageProvider(
                                   controller.categoryList[index].toString()),
                             ),
                           ),
                         ),
                       ),
                       SizedBox(height: 5.0),
-                      Text(controller.categories[index],
-                          style: TextStyle(fontSize: 16.0)),
+                      Text(
+                        controller.categories[index],
+                        style: TextStyle(fontSize: 16.0),
+                      ),
                     ],
                   ),
                 ),

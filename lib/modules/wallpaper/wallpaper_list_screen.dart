@@ -34,13 +34,9 @@ class _WallpaperListScreenState extends State<WallpaperListScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: FloatingActionButton(
-        onPressed: () => controller.getWallpaperList("Nature"),
-      ),
-      appBar:  MyAppBar(
-        tag: 'appbar_title',
+      floatingActionButton: FloatingActionButton(onPressed: () {}),
+      appBar: MyAppBar(
         title: 'wallpaper',
-        tag2: "1",
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),

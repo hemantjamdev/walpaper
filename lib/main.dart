@@ -25,6 +25,7 @@ class WallpaperApp extends StatelessWidget {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       home: SplashScreen(),
+      theme: ThemeData(useMaterial3: true),
     );
   }
 }
