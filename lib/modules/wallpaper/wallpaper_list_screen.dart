@@ -1,7 +1,11 @@
+import 'dart:developer';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:get/get.dart';
+import 'package:wallpaper/modules/wallpaper/category_provider.dart';
+import 'package:wallpaper/modules/wallpaper/category_screen.dart';
 import 'package:wallpaper/modules/wallpaper/wallpaper_model.dart';
 import 'package:wallpaper/modules/wallpaper/wallpepr_provider.dart';
 
@@ -17,15 +21,19 @@ class _WallpaperListScreenState extends State<WallpaperListScreen> {
 
   @override
   void initState() {
-    controller.getWallpaperList();
+    controller.getWallpaperList;
     super.initState();
   }
+
+  /* void search(String arg) {
+    controller.getWallpaperList(value: arg);
+  }*/
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         floatingActionButton: FloatingActionButton(
-          onPressed: controller.getWallpaperList,
+          onPressed: () => controller.getWallpaperList,
         ),
         appBar: AppBar(
           title: Text("Wallpapers"),
@@ -36,9 +44,8 @@ class _WallpaperListScreenState extends State<WallpaperListScreen> {
             () => Column(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
-              //mainAxisSize: MainAxisSize.max,
               children: [
-                SearchBar(),
+                SearchBar(onSearch: controller.getWallpaperList),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Text("popular categories"),
@@ -128,44 +135,6 @@ class _SearchBarState extends State<SearchBar> {
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10.0),
         ),
-      ),
-    );
-  }
-}
-
-class CategoryList extends StatelessWidget {
-  final List<String> categories = [
-    'Food',
-    'Nature',
-    'Sports',
-    'Technology',
-    'Travel'
-  ];
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      height: 100.0,
-      child: ListView.builder(
-        scrollDirection: Axis.horizontal,
-        itemCount: categories.length,
-        itemBuilder: (BuildContext context, int index) {
-          return Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Column(
-              //mainAxisSize: MainAxisSize.min,
-              children: [
-                CircleAvatar(
-                  // radius: 25.0,
-                  backgroundImage: NetworkImage(
-                      'https://source.unsplash.com/featured/?${categories[index]}'),
-                ),
-                SizedBox(height: 8.0),
-                Text(categories[index], style: TextStyle(fontSize: 16.0)),
-              ],
-            ),
-          );
-        },
       ),
     );
   }
