@@ -21,12 +21,9 @@ class WallpaperListController extends GetxController {
       if (res.statusCode == 200) {
         wallpaperData = ImageModel.fromJson(jsonDecode(res.body));
         imageList.value = wallpaperData.photos!;
-        // log('----->> this is data---->${res.body}<<----');
-      } else {
-        log('----->> can not get data<<----');
       }
     } catch (e) {
-      log('--error in catch--->> $e<<----');
+      log(e.toString());
     }
   }
 }

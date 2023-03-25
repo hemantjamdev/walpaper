@@ -27,8 +27,6 @@ class _LoginScreenState extends State<LoginScreen> {
               onPressed: () {
                 controller.signInWithGoogle();
               },
-              //icon: Icon(Icons.login),
-              //label: Text('Sign in with Google'),
             ),
             SignInButton(
               Buttons.anonymous,
@@ -36,25 +34,9 @@ class _LoginScreenState extends State<LoginScreen> {
                 Get.to(() => WallpaperListScreen());
               },
               text: 'Login as Guest',
-              //icon: Icon(Icons.login),
-              //label: Text('Sign in with Google'),
             ),
             SizedBox(height: 20),
-            /* ElevatedButton.icon(
-              onPressed: () {
-                controller.signOut();
-              },
-              icon: Icon(Icons.logout),
-              label: Text('log out'),
-            ),*/
             SizedBox(height: 20),
-            /*  ElevatedButton.icon(
-              onPressed: () {
-                Get.to(WallpaperListScreen());
-              },
-              icon: Icon(Icons.person),
-              label:
-            ),*/
           ],
         ),
       ),

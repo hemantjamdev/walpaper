@@ -34,7 +34,6 @@ class FirebaseHelper {
         .doc(newUser.uid)
         .set(newUser.toMap());
     log('------new user createdd-------');
-   // UserCredential cred = await FirebaseAuth.instance.signInAnonymously();
   }
 
   static getUserById() {}

@@ -13,13 +13,9 @@ class HomeController extends GetxController {
   GoogleSignIn googleSignIn= GoogleSignIn();
   checkLogin() {
     if(googleSignIn.currentUser!=null){
-      log('------> user found in home provider<--------');
       isLogin.value =true;
-      log('-----value of isLogin = $isLogin<------');
     }else{
-      log('------> user not in home provider<--------');
       isLogin.value=false;
-      log('-----value of isLogin = $isLogin<------');
     }
   }
 }
