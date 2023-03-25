@@ -7,9 +7,21 @@ import 'package:get/get.dart';
 
 import '../wallpaper/wallpaper_list_screen.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   HomeScreen({Key? key}) : super(key: key);
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
   final controller = Get.put(HomeController());
+
+  @override
+  void initState() {
+    controller.checkLogin();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {

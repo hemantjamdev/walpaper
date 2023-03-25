@@ -6,7 +6,7 @@ import 'package:wallpaper/modules/home/home_screen.dart';
 
 class SplashController extends GetxController {
   goToHomeScreen() {
-    Timer(Duration(seconds: 5), () {
+    Timer(Duration(seconds: 1), () {
       Get.to(HomeScreen());
     });
   }
