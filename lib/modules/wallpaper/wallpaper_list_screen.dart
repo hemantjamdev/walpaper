@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:get/get.dart';
@@ -23,35 +24,149 @@ class _WallpaperListScreenState extends State<WallpaperListScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        floatingActionButton: FloatingActionButton(
+          onPressed: controller.getWallpaperList,
+        ),
         appBar: AppBar(
           title: Text("Wallpapers"),
         ),
-        body: Obx(
-          () => GridView.builder(
-            itemCount: controller.wallpaperList.length,
-            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2,
-              crossAxisSpacing: 10,
-              mainAxisSpacing: 10,
-            ),
-            itemBuilder: (context, index) {
-              ImageModel image = controller.wallpaperList[index];
-              return Shimmer.fromColors(
-                baseColor: Colors.grey[300]!,
-                highlightColor: Colors.grey[100]!,
-                child: Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    color: Colors.grey[300],
-                  ),
-                  child: Image.network(
-                    image.photos![index].url.toString(),
-                    fit: BoxFit.cover,
+        body: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Obx(
+            () => Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              //mainAxisSize: MainAxisSize.max,
+              children: [
+                SearchBar(),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text("popular categories"),
+                ),
+                CategoryList(),
+                Expanded(
+                  child: GridView.builder(
+                    itemCount: controller.imageList.length,
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,
+                      crossAxisSpacing: 10,
+                      mainAxisSpacing: 10,
+                    ),
+                    itemBuilder: (context, index) {
+                      Photos image = controller.imageList[index];
+                      return Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            color: Colors.grey[300],
+                          ),
+                          child: gridWidget(image.src!.original.toString()));
+                      // );
+                    },
                   ),
                 ),
-              );
-            },
+              ],
+            ),
           ),
         ));
+  }
+}
+
+Widget gridWidget(String url) {
+  return CachedNetworkImage(
+    fit: BoxFit.cover,
+    imageUrl: url,
+    imageBuilder: (context, imageProvider) => Container(
+      decoration: BoxDecoration(
+        image: DecorationImage(image: imageProvider, fit: BoxFit.cover),
+      ),
+    ),
+    placeholder: (context, url) => loading(),
+    errorWidget: (context, url, error) => Icon(Icons.error),
+  );
+}
+
+Widget loading() {
+  return Shimmer(
+    gradient: LinearGradient(
+      begin: Alignment.topLeft,
+      end: Alignment.bottomRight,
+      colors: [Colors.grey[300]!, Colors.grey[100]!, Colors.grey[400]!],
+      stops: [0.4, 0.5, 0.6],
+    ),
+    child: Container(
+      color: Colors.white,
+    ),
+  );
+}
+
+class SearchBar extends StatefulWidget {
+  final void Function(String)? onSearch;
+
+  const SearchBar({Key? key, this.onSearch}) : super(key: key);
+
+  @override
+  _SearchBarState createState() => _SearchBarState();
+}
+
+class _SearchBarState extends State<SearchBar> {
+  final TextEditingController _textEditingController = TextEditingController();
+
+  @override
+  Widget build(BuildContext context) {
+    return TextField(
+      controller: _textEditingController,
+      decoration: InputDecoration(
+        hintText: 'Search...',
+        suffixIcon: IconButton(
+          icon: Icon(Icons.search),
+          onPressed: () {
+            if (widget.onSearch != null) {
+              widget.onSearch!(_textEditingController.text);
+            }
+          },
+        ),
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10.0),
+        ),
+      ),
+    );
+  }
+}
+
+class CategoryList extends StatelessWidget {
+  final List<String> categories = [
+    'Food',
+    'Nature',
+    'Sports',
+    'Technology',
+    'Travel'
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 100.0,
+      child: ListView.builder(
+        scrollDirection: Axis.horizontal,
+        itemCount: categories.length,
+        itemBuilder: (BuildContext context, int index) {
+          return Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              //mainAxisSize: MainAxisSize.min,
+              children: [
+                CircleAvatar(
+                  // radius: 25.0,
+                  backgroundImage: NetworkImage(
+                      'https://source.unsplash.com/featured/?${categories[index]}'),
+                ),
+                SizedBox(height: 8.0),
+                Text(categories[index], style: TextStyle(fontSize: 16.0)),
+              ],
+            ),
+          );
+        },
+      ),
+    );
   }
 }

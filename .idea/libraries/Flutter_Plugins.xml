@@ -24,6 +24,7 @@
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/google_sign_in_android-6.1.8" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/firebase_auth-4.2.10" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/google_sign_in-6.0.1" />
+      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/sqflite-2.2.6" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />
