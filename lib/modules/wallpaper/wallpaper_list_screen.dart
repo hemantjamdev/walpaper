@@ -6,12 +6,14 @@ import 'package:shimmer/shimmer.dart';
 import 'package:get/get.dart';
 import 'package:wallpaper/modules/wallpaper/category_provider.dart';
 import 'package:wallpaper/modules/wallpaper/category_screen.dart';
+import 'package:wallpaper/modules/wallpaper/image_view.dart';
 import 'package:wallpaper/modules/wallpaper/wallpaper_model.dart';
 import 'package:wallpaper/modules/wallpaper/wallpepr_provider.dart';
 import 'package:wallpaper/widgets/app_bar.dart';
 
 import '../../widgets/search_bar.dart';
 import '../../widgets/wallpaper_grid.dart';
+import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
 class WallpaperListScreen extends StatefulWidget {
   const WallpaperListScreen({Key? key}) : super(key: key);
@@ -25,7 +27,7 @@ class _WallpaperListScreenState extends State<WallpaperListScreen> {
 
   @override
   void initState() {
-    controller.getWallpaperList;
+    controller.getWallpaperList("Nature");
     super.initState();
   }
 
@@ -33,13 +35,12 @@ class _WallpaperListScreenState extends State<WallpaperListScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
-        onPressed: () => controller.getWallpaperList,
+        onPressed: () => controller.getWallpaperList("Nature"),
       ),
-      appBar: MyAppBar(
-        widget: Hero(
-          tag: 'appbar_title',
-          child: Text('wallpapers'),
-        ),
+      appBar:  MyAppBar(
+        tag: 'appbar_title',
+        title: 'wallpaper',
+        tag2: "1",
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
@@ -53,24 +54,38 @@ class _WallpaperListScreenState extends State<WallpaperListScreen> {
                 padding: const EdgeInsets.all(8.0),
                 child: Text("popular categories"),
               ),
-              CategoryList(),
+              CategoryList(
+                onCategorySearch: controller.getWallpaperList,
+              ),
               Expanded(
-                child: GridView.builder(
+                child: MasonryGridView.count(
+                  addSemanticIndexes: true,
+                  mainAxisSpacing: 4,
+                  crossAxisSpacing: 4,
+                  crossAxisCount: 2,
                   itemCount: controller.imageList.length,
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  /*  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2,
                     crossAxisSpacing: 10,
                     mainAxisSpacing: 10,
-                  ),
+                  ),*/
                   itemBuilder: (context, index) {
                     Photos image = controller.imageList[index];
                     return Container(
+                      height: image.height! / 30,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10),
                         color: Colors.grey[300],
                       ),
-                      child: WallpaperGrid(
-                        url: image.src!.original.toString(),
+                      child: InkWell(
+                        onTap: () {
+                          Get.to(() => ImageView(
+                              imageUrl: image.src!.original.toString()));
+                        },
+                        child: WallpaperGrid(
+                          // height:
+                          url: image.src!.medium.toString(),
+                        ),
                       ),
                     );
                   },

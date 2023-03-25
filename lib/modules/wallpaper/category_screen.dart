@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:wallpaper/modules/wallpaper/category_provider.dart';
 
 class CategoryList extends StatelessWidget {
+  final void Function(String)? onCategorySearch;
+
+  CategoryList({required this.onCategorySearch, super.key});
+
   final controller = CategoryController();
 
   @override
@@ -31,10 +36,28 @@ class CategoryList extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      CircleAvatar(
-                        radius: 30.0,
-                        backgroundImage: NetworkImage(
-                            controller.categoryList[index].toString()),
+                      InkWell(
+                        onTap: () {
+                          onCategorySearch!(controller.categories[index]);
+                          controller.changeSelect(controller.categories[index]);
+                        },
+                        child: Obx(
+                          () => CircleAvatar(
+                            radius: controller.catName.value ==
+                                    controller.categories[index]
+                                ? 32
+                                : 31,
+                            backgroundColor: controller.catName.value ==
+                                    controller.categories[index]
+                                ? Colors.orange
+                                : Colors.white,
+                            child: CircleAvatar(
+                              radius: 30.0,
+                              backgroundImage: NetworkImage(
+                                  controller.categoryList[index].toString()),
+                            ),
+                          ),
+                        ),
                       ),
                       SizedBox(height: 5.0),
                       Text(controller.categories[index],

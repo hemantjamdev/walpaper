@@ -7,8 +7,14 @@ import 'package:http/http.dart' as http;
 import 'package:wallpaper/modules/wallpaper/wallpaper_model.dart';
 
 class CategoryController extends GetxController {
+  RxString catName = "Nature".obs;
+
   CategoryController() {
     getCategory();
+  }
+
+  changeSelect(String categoryName) {
+    catName.value = categoryName;
   }
 
   List<String> categories = [

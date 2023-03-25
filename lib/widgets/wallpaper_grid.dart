@@ -4,8 +4,7 @@ import 'package:shimmer/shimmer.dart';
 
 class WallpaperGrid extends StatelessWidget {
   final String url;
-
-  const WallpaperGrid({Key? key, required this.url}) : super(key: key);
+  const WallpaperGrid({Key? key, required this.url, }) : super(key: key);
 
   Widget loading() {
     return Shimmer(
@@ -24,14 +23,12 @@ class WallpaperGrid extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CachedNetworkImage(
+     // height: double.parse(height.toString()),
       fit: BoxFit.cover,
       imageUrl: url,
-      imageBuilder: (context, imageProvider) => Hero(
-        tag: 'image',
-        child: Container(
-          decoration: BoxDecoration(
-            image: DecorationImage(image: imageProvider, fit: BoxFit.cover),
-          ),
+      imageBuilder: (context, imageProvider) => Container(
+        decoration: BoxDecoration(
+          image: DecorationImage(image: imageProvider, fit: BoxFit.cover),
         ),
       ),
       placeholder: (context, url) => loading(),

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:photo_view/photo_view.dart';
 
 import '../../widgets/app_bar.dart';
+import '../../widgets/custom_icon.dart';
+import '../../widgets/wallpaper_grid.dart';
 
 class ImageView extends StatelessWidget {
   final String imageUrl;
@@ -11,63 +12,33 @@ class ImageView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-    appBar:  MyAppBar(
-        widget: Hero(tag: 'appbar_title',child: Text('image'),),
+      appBar: MyAppBar(
+        tag: 'appbar_title',
+        title: 'image',
+        tag2: "1",
       ),
-      backgroundColor: Colors.black,
+      backgroundColor: Colors.grey,
       body: Stack(
         children: [
-          Hero(
-            tag: "image",
-            child: PhotoView(
-              imageProvider: NetworkImage(imageUrl),
-              backgroundDecoration: BoxDecoration(color: Colors.black),
-              loadingBuilder: (context, event) =>
-                  Center(child: CircularProgressIndicator()),
-              minScale: PhotoViewComputedScale.contained,
-              maxScale: PhotoViewComputedScale.covered * 2,
-            ),
-          ),
-          Positioned(
-            left: 0,
-            bottom: 0,
-            child: Container(
-              padding: EdgeInsets.all(16.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  IconButton(
-                    icon: Icon(Icons.share),
-                    color: Colors.white,
-                    onPressed: () {
-                      // Handle share button press
-                    },
-                  ),
-                  IconButton(
-                    icon: Icon(Icons.file_download),
-                    color: Colors.white,
-                    onPressed: () {
-                      // Handle download button press
-                    },
-                  ),
-                  IconButton(
-                    icon: Icon(Icons.wallpaper),
-                    color: Colors.white,
-                    onPressed: () {
-                      // Handle set as wallpaper button press
-                    },
-                  ),
-                  IconButton(
-                    icon: Icon(Icons.favorite),
-                    color: Colors.white,
-                    onPressed: () {
-                      // Handle add to favorites button press
-                    },
-                  ),
-                ],
+          InteractiveViewer(child: WallpaperGrid(url: imageUrl)),
+          Column(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              Container(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  mainAxisSize: MainAxisSize.max,
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    CustomIcon(icon: Icon(Icons.share)),
+                    CustomIcon(icon: Icon(Icons.file_download)),
+                    CustomIcon(icon: Icon(Icons.wallpaper)),
+                    CustomIcon(icon: Icon(Icons.favorite)),
+                  ],
+                ),
               ),
-            ),
-          ),
+            ],
+          )
         ],
       ),
     );
