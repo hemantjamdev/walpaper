@@ -1,5 +1,6 @@
 
 import 'package:flutter/material.dart';
+import 'package:wallpaper/widgets/custon_toast.dart';
 
 class CustomIcon extends StatelessWidget {
   final Icon icon;
@@ -14,7 +15,7 @@ class CustomIcon extends StatelessWidget {
         icon:icon,
         color: Colors.white,
         onPressed: () {
-          // Handle share button press
+          customSnackBar(msg: 'coming soon....');
         },
       ),
     );
