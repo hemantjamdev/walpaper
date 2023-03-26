@@ -1,10 +1,5 @@
-import 'dart:developer';
-
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:shimmer/shimmer.dart';
 import 'package:get/get.dart';
-import 'package:wallpaper/modules/wallpaper/category_provider.dart';
 import 'package:wallpaper/modules/wallpaper/category_screen.dart';
 import 'package:wallpaper/modules/wallpaper/image_view.dart';
 import 'package:wallpaper/modules/wallpaper/wallpaper_model.dart';
@@ -19,10 +14,10 @@ class WallpaperListScreen extends StatefulWidget {
   const WallpaperListScreen({Key? key}) : super(key: key);
 
   @override
-  _WallpaperListScreenState createState() => _WallpaperListScreenState();
+  WallpaperListScreenState createState() => WallpaperListScreenState();
 }
 
-class _WallpaperListScreenState extends State<WallpaperListScreen> {
+class WallpaperListScreenState extends State<WallpaperListScreen> {
   final controller = Get.put(WallpaperListController());
 
   @override
@@ -34,11 +29,8 @@ class _WallpaperListScreenState extends State<WallpaperListScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: Drawer(),
-      //floatingActionButton: FloatingActionButton(onPressed: () {}),
-      appBar: MyAppBar(
-        title: 'wallpaper'
-      ),
+      drawer: const Drawer(),
+      appBar: MyAppBar(title: 'wallpaper'),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Obx(
@@ -47,8 +39,8 @@ class _WallpaperListScreenState extends State<WallpaperListScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               SearchBar(onSearch: controller.getWallpaperList),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
+              const Padding(
+                padding: EdgeInsets.all(8.0),
                 child: Text("popular categories"),
               ),
               CategoryList(
@@ -61,11 +53,6 @@ class _WallpaperListScreenState extends State<WallpaperListScreen> {
                   crossAxisSpacing: 4,
                   crossAxisCount: 2,
                   itemCount: controller.imageList.length,
-                  /*  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    crossAxisSpacing: 10,
-                    mainAxisSpacing: 10,
-                  ),*/
                   itemBuilder: (context, index) {
                     Photos image = controller.imageList[index];
                     return Container(
@@ -80,7 +67,6 @@ class _WallpaperListScreenState extends State<WallpaperListScreen> {
                               imageUrl: image.src!.original.toString()));
                         },
                         child: WallpaperGrid(
-                          // height:
                           url: image.src!.medium.toString(),
                         ),
                       ),

@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'dart:developer';
 import 'dart:io';
-import 'package:flutter/services.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:flutter_file_downloader/flutter_file_downloader.dart';
 import 'package:get/get.dart';
@@ -9,7 +8,6 @@ import 'package:wallpaper/widgets/custon_toast.dart';
 import 'package:wallpaper_manager_flutter/wallpaper_manager_flutter.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:path_provider/path_provider.dart' as path_provider;
-import 'package:image_picker/image_picker.dart' as image_picker;
 
 class ImageViewController extends GetxController {
   RxBool isShowingLoading = false.obs;
@@ -21,7 +19,7 @@ class ImageViewController extends GetxController {
       try {
         isShowingLoading.value = true;
         WallpaperManagerFlutter().setwallpaperfromFile(file, location);
-        Timer(Duration(seconds: 2), () {
+        Timer(const Duration(seconds: 2), () {
           isShowingLoading.value = false;
           customSnackBar(msg: 'wallpaper updated');
         });
@@ -38,9 +36,7 @@ class ImageViewController extends GetxController {
       Share.shareXFiles([downloadedImage!]);
     } else {
       await downloadImage(text);
-      if (downloadedImage != null) {
-        Share.shareXFiles([downloadedImage!]);
-      }
+      Share.shareXFiles([downloadedImage!]);
     }
     isShowingLoading.value = false;
   }
@@ -48,6 +44,7 @@ class ImageViewController extends GetxController {
   Future<void> downloadImage(String imageUrl) async {
     Directory? directory = await path_provider.getExternalStorageDirectory();
     if (directory!.existsSync()) {
+      log("-------> directory exist<-------");
       try {
         await FileDownloader.downloadFile(
             url: imageUrl,
@@ -55,33 +52,16 @@ class ImageViewController extends GetxController {
               isShowingLoading.value = true;
             },
             onDownloadCompleted: (String path) {
-              setToFile(path);
               isShowingLoading.value = false;
-              // customSnackBar(msg: 'already downlaoded');
             },
             onDownloadError: (String error) {
               isShowingLoading.value = false;
-              //customSnackBar(msg: 'already downlaoded');
             });
       } catch (e) {
         customSnackBar(msg: 'Error in download');
       }
     } else {
-      FileDownloader.downloadFile(
-          url: imageUrl,
-          onProgress: (String? fileName, double progress) {
-            isShowingLoading.value = true;
-          },
-          onDownloadCompleted: (String path) {
-            setToFile(path);
-            isShowingLoading.value = false;
-          },
-          onDownloadError: (String error) {});
+      customSnackBar(msg: 'something went wrong while download');
     }
-  }
-
-  setToFile(String bytes) {
-    downloadedImage =
-        image_picker.XFile.fromData(Uint8List.fromList(bytes.codeUnits));
   }
 }

@@ -12,7 +12,7 @@ class WallpaperGrid extends StatelessWidget {
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
         colors: [Colors.grey[300]!, Colors.grey[100]!, Colors.grey[400]!],
-        stops: [0.4, 0.5, 0.6],
+        stops: const [0.4, 0.5, 0.6],
       ),
       child: Container(
         color: Colors.white,
@@ -31,7 +31,7 @@ class WallpaperGrid extends StatelessWidget {
         ),
       ),
       placeholder: (context, url) => loading(),
-      errorWidget: (context, url, error) => Icon(Icons.error),
+      errorWidget: (context, url, error) => const Icon(Icons.error),
     );
   }
 }

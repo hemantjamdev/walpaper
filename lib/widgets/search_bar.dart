@@ -6,10 +6,10 @@ class SearchBar extends StatefulWidget {
   const SearchBar({Key? key, this.onSearch}) : super(key: key);
 
   @override
-  _SearchBarState createState() => _SearchBarState();
+  SearchBarState createState() => SearchBarState();
 }
 
-class _SearchBarState extends State<SearchBar> {
+class SearchBarState extends State<SearchBar> {
   final TextEditingController _textEditingController = TextEditingController();
 
   @override
@@ -31,7 +31,7 @@ class _SearchBarState extends State<SearchBar> {
       decoration: InputDecoration(
         hintText: 'Search...',
         suffixIcon: IconButton(
-          icon: Icon(Icons.search),
+          icon: const Icon(Icons.search),
           onPressed: () {
             if (widget.onSearch != null) {
               FocusScope.of(context).unfocus();

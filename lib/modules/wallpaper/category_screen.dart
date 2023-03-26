@@ -6,7 +6,7 @@ import 'package:wallpaper/modules/wallpaper/category_provider.dart';
 class CategoryList extends StatefulWidget {
   final void Function(String)? onCategorySearch;
 
-  CategoryList({required this.onCategorySearch, super.key});
+  const CategoryList({required this.onCategorySearch, super.key});
 
   @override
   State<CategoryList> createState() => _CategoryListState();
@@ -22,7 +22,7 @@ class _CategoryListState extends State<CategoryList> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(border: Border()),
+      decoration: const BoxDecoration(border: Border()),
       height: 120.0,
       child: Card(
         child: ListView.builder(
@@ -33,8 +33,8 @@ class _CategoryListState extends State<CategoryList> {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 30),
+                const Padding(
+                  padding: EdgeInsets.symmetric(vertical: 30),
                   child: VerticalDivider(
                     color: Colors.black,
                     thickness: 1,
@@ -69,10 +69,10 @@ class _CategoryListState extends State<CategoryList> {
                           ),
                         ),
                       ),
-                      SizedBox(height: 5.0),
+                      const SizedBox(height: 5.0),
                       Text(
                         controller.categories[index],
-                        style: TextStyle(fontSize: 16.0),
+                        style: const TextStyle(fontSize: 16.0),
                       ),
                     ],
                   ),

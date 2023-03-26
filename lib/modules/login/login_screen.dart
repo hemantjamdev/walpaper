@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 import 'package:get/get.dart';
 import 'package:wallpaper/modules/login/login_provider.dart';
 import 'package:wallpaper/modules/wallpaper/wallpaper_list_screen.dart';
 import 'package:sign_in_button/sign_in_button.dart';
 
 class LoginScreen extends StatefulWidget {
+  const LoginScreen({super.key});
+
   @override
-  _LoginScreenState createState() => _LoginScreenState();
+  LoginScreenState createState() => LoginScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class LoginScreenState extends State<LoginScreen> {
   final controller = Get.put(LoginController());
 
   @override
@@ -25,7 +25,7 @@ class _LoginScreenState extends State<LoginScreen> {
           Image.asset(
              fit:BoxFit.contain ,
               'assets/images/login.jpg'),
-            SizedBox(height: 50),
+            const SizedBox(height: 50),
             SignInButton(
               Buttons.google,
               onPressed: () {
@@ -35,12 +35,12 @@ class _LoginScreenState extends State<LoginScreen> {
             SignInButton(
               Buttons.anonymous,
               onPressed: () {
-                Get.to(() => WallpaperListScreen());
+                Get.to(() => const WallpaperListScreen());
               },
               text: 'Login as Guest',
             ),
-            SizedBox(height: 20),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
+            const SizedBox(height: 20),
           ],
         ),
       ),
