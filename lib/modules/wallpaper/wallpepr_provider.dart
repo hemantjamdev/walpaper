@@ -10,12 +10,14 @@ class WallpaperListController extends GetxController {
   ImageModel wallpaperData = ImageModel();
   RxList<Photos> imageList = <Photos>[].obs;
 
-   getWallpaperList(String? value) async {
+  getWallpaperList(String? value, [int? page = 1]) async {
     const API_KEY = '563492ad6f91700001000001e386ced37ce24f0bba8e9db72a117295';
 
     try {
       String url =
-          "https://api.pexels.com/v1/search?query=${value??"Nature"}?per_page=10&page=1";
+          "https://api.pexels.com/v1/search?query=$value&page=$page&per_page=20";
+      //'https://api.pexels.com/v1/curated?page=$currentPage&per_page=$perPage'),
+
       http.Response res =
           await http.get(Uri.parse(url), headers: {'Authorization': API_KEY});
       if (res.statusCode == 200) {
