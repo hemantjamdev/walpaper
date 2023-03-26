@@ -57,7 +57,6 @@ dependencies:
   share_plus: ^6.3.1
   permission_handler: ^10.2.0
   flutter_file_downloader: ^1.1.0+1
-  liquid_progress_indicator: ^0.4.0
 
 dev_dependencies:
   flutter_test:
