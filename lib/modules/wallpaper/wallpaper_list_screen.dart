@@ -48,26 +48,22 @@ class WallpaperListScreenState extends State<WallpaperListScreen> {
               ),
               Expanded(
                 child: MasonryGridView.count(
-                  addSemanticIndexes: true,
-                  mainAxisSpacing: 4,
-                  crossAxisSpacing: 4,
+                  shrinkWrap: true,
+                  mainAxisSpacing: 2,
+                  crossAxisSpacing: 2,
                   crossAxisCount: 2,
                   itemCount: controller.imageList.length,
                   itemBuilder: (context, index) {
                     Photos image = controller.imageList[index];
-                    return Container(
-                      height: image.height! / 30,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        color: Colors.grey[300],
-                      ),
-                      child: InkWell(
-                        onTap: () {
-                          Get.to(() => ImageView(
-                              imageUrl: image.src!.original.toString()));
-                        },
+                    return InkWell(
+                      onTap: () {
+                        Get.to(() => ImageView(
+                            imageUrl: image.src!.original.toString()));
+                      },
+                      child: Container(
+                        height: image.height!.toDouble()/30.toDouble(),
                         child: WallpaperGrid(
-                          url: image.src!.medium.toString(),
+                          url: image.src!.tiny.toString(),
                         ),
                       ),
                     );

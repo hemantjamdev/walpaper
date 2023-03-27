@@ -14,7 +14,7 @@ class WallpaperListController extends GetxController {
 
     try {
       String url =
-          "https://api.pexels.com/v1/search?query=$value&page=$page&per_page=20";
+          "https://api.pexels.com/v1/search?query=$value&page=$page&per_page=50";
 
       http.Response res =
           await http.get(Uri.parse(url), headers: {'Authorization': apiKey});

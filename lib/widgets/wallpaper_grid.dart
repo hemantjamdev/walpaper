@@ -23,7 +23,7 @@ class WallpaperGrid extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CachedNetworkImage(
-      fit: BoxFit.cover,
+      fit: BoxFit.contain,
       imageUrl: url,
       imageBuilder: (context, imageProvider) => Container(
         decoration: BoxDecoration(

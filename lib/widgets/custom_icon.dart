@@ -10,7 +10,9 @@ class CustomIcon extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(16.0),
-      child: IconButton(icon: icon, color: Colors.white, onPressed: onTap),
+      child: Card(
+          color: Colors.grey,
+          child: IconButton(icon: icon, color: Colors.white, onPressed: onTap)),
     );
   }
 }
