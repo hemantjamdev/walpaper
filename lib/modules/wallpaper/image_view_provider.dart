@@ -1,67 +1,64 @@
 import 'dart:async';
 import 'dart:developer';
 import 'dart:io';
+import 'dart:math';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
-import 'package:flutter_file_downloader/flutter_file_downloader.dart';
+import 'package:gallery_saver/gallery_saver.dart';
 import 'package:get/get.dart';
-import 'package:wallpaper/widgets/custon_toast.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:wallpaper/widgets/custon_snack.dart';
+import 'package:wallpaper/widgets/loading.dart';
 import 'package:wallpaper_manager_flutter/wallpaper_manager_flutter.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:path_provider/path_provider.dart' as path_provider;
+import 'package:gallery_saver/files.dart';
+import 'package:http/http.dart' as http;
 
 class ImageViewController extends GetxController {
-  RxBool isShowingLoading = false.obs;
   XFile? downloadedImage;
 
   Future<void> setWallpaper(String imageUrl, location) async {
     var file = await DefaultCacheManager().getSingleFile(imageUrl);
     if (location != "" && location != null) {
       try {
-        isShowingLoading.value = true;
+        customLoading(true);
         WallpaperManagerFlutter().setwallpaperfromFile(file, location);
         Timer(const Duration(seconds: 2), () {
-          isShowingLoading.value = false;
+          customLoading(false);
           customSnackBar(msg: 'wallpaper updated');
         });
       } catch (e) {
         customSnackBar(msg: 'Error Setting Wallpaper');
-        isShowingLoading.value = false;
+        customLoading(false);
       }
     }
   }
 
-  Future<void> shareImage(String text) async {
-    isShowingLoading.value = true;
-    if (downloadedImage != null) {
-      Share.shareXFiles([downloadedImage!]);
-    } else {
-      await downloadImage(text);
-      Share.shareXFiles([downloadedImage!]);
-    }
-    isShowingLoading.value = false;
+  Future<void> shareImage(String url) async {
+    customLoading(true);
+    XFile fileForShare = await fileFromImageUrl(url);
+
+    Share.shareXFiles([fileForShare]);
+    customLoading(false);
+  }
+
+  fileFromImageUrl(String url) async {
+    final response = await http.get(Uri.parse(url));
+    final documentDirectory = await getApplicationDocumentsDirectory();
+    String fileName = DateTime.now().toString();
+    final file = File("${documentDirectory.path}$fileName.png");
+    file.writeAsBytesSync(response.bodyBytes);
+    return XFile(file.path);
   }
 
   Future<void> downloadImage(String imageUrl) async {
-    Directory? directory = await path_provider.getExternalStorageDirectory();
-    if (directory!.existsSync()) {
-      log("-------> directory exist<-------");
-      try {
-        await FileDownloader.downloadFile(
-            url: imageUrl,
-            onProgress: (String? fileName, double progress) {
-              isShowingLoading.value = true;
-            },
-            onDownloadCompleted: (String path) {
-              isShowingLoading.value = false;
-            },
-            onDownloadError: (String error) {
-              isShowingLoading.value = false;
-            });
-      } catch (e) {
-        customSnackBar(msg: 'Error in download');
-      }
-    } else {
-      customSnackBar(msg: 'something went wrong while download');
+    try {
+      customLoading(true);
+      await GallerySaver.saveImage(imageUrl);
+      customLoading(false);
+      customSnackBar(msg: 'Image downloaded in Picture folder');
+    } catch (e) {
+      customSnackBar(msg: 'Error in download');
     }
   }
 }

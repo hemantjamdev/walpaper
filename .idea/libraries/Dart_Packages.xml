@@ -226,13 +226,6 @@
             </list>
           </value>
         </entry>
-        <entry key="flutter_file_downloader">
-          <value>
-            <list>
-              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/flutter_file_downloader-1.1.0+1/lib" />
-            </list>
-          </value>
-        </entry>
         <entry key="flutter_lints">
           <value>
             <list>
@@ -272,6 +265,13 @@
           <value>
             <list>
               <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/font_awesome_flutter-10.4.0/lib" />
+            </list>
+          </value>
+        </entry>
+        <entry key="gallery_saver">
+          <value>
+            <list>
+              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/gallery_saver-2.3.2/lib" />
             </list>
           </value>
         </entry>
@@ -792,11 +792,11 @@
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/firebase_storage_web-3.3.25/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/flutter_blurhash-0.7.0/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/flutter_cache_manager-3.3.0/lib" />
-      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/flutter_file_downloader-1.1.0+1/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/flutter_lints-2.0.1/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/flutter_plugin_android_lifecycle-2.0.9/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/flutter_staggered_grid_view-0.6.2/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/font_awesome_flutter-10.4.0/lib" />
+      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/gallery_saver-2.3.2/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/get-4.6.5/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/google_identity_services_web-0.2.0/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/google_sign_in-6.0.1/lib" />

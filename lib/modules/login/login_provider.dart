@@ -2,7 +2,7 @@
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:wallpaper/utils/firebase_helper.dart';
-import 'package:wallpaper/widgets/custon_toast.dart';
+import 'package:wallpaper/widgets/custon_snack.dart';
 
 class LoginController extends GetxController {
   final GoogleSignIn googleSignIn = GoogleSignIn();
